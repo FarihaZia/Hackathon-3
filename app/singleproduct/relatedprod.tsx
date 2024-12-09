@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 import React, { useState } from "react";
 
 const RelatedProducts = () => {
@@ -39,9 +40,11 @@ const RelatedProducts = () => {
               key={product.id}
               className=" p-4 flex flex-col  bg-white hover:shadow-xl transition-shadow"
             >
-              <img
+              <Image
                 src={product.image}
                 alt={product.name}
+                width={287}
+                height={287}
                 className="w-full h-40 object-contain mb-4"
               />
               <h3 className="text[16px]  mb-2">{product.name}</h3>

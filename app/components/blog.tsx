@@ -62,12 +62,11 @@ const BlogSection = () => {
       },
   ];
 
-  const [expandedBlog, setExpandedBlog] = useState(null);
+  const [expandedBlog, setExpandedBlog] = useState<number | null>(null);
   const [visibleBlogs, setVisibleBlogs] = useState(3);
 
-  const toggleReadMore = (id:number) => {
-   
-  };
+  
+  const toggleReadMore = (id: number) => {setExpandedBlog((prevId) => (prevId === id ? null : id));}
 
   return (
     <section className="bg-white py-12 px-6">
@@ -121,7 +120,8 @@ const BlogSection = () => {
             </div>
           ))}
         </div>
-
+        
+        
        
        <div className="mt-8 text-center">
           {visibleBlogs < blogs.length && (
