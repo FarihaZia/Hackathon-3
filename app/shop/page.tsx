@@ -3,8 +3,9 @@ import Image from "next/image";
 import { TbCarouselVertical } from "react-icons/tb";
 import { PiCirclesFourFill } from "react-icons/pi";
 import { LiaSlidersHSolid } from "react-icons/lia";
-import PaginatedProductsSection from "./products";
+
 import ProductGrid from "./products";
+import Link from "next/link";
 
 const MainHeader = () => {
   return (
@@ -29,9 +30,9 @@ const MainHeader = () => {
 
          
           <nav className="text-black text-sm  mt-3">
-            <a href="/" className="font-bold">
+            <Link href="/" className="font-bold">
               Home
-            </a>
+            </Link>
             <span className="mx-2 font-bold">{">"}</span>
             <span className="hover:underline ">Shop</span>
           </nav>

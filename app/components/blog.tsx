@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 import React, { useState } from "react";
 
 const BlogSection = () => {
@@ -64,8 +65,8 @@ const BlogSection = () => {
   const [expandedBlog, setExpandedBlog] = useState(null);
   const [visibleBlogs, setVisibleBlogs] = useState(3);
 
-  const toggleReadMore = (id:any) => {
-    setExpandedBlog(expandedBlog === id ? null : id);
+  const toggleReadMore = (id:number) => {
+   
   };
 
   return (
@@ -86,10 +87,12 @@ const BlogSection = () => {
               key={blog.id}
               className="p-4 bg-white flex flex-col items-start hover:shadow-xl transition-shadow"
             >
-              <img
+              <Image
                 src={blog.image}
                 alt={blog.title}
-                className="w-[393px] h-[393px] object-cover rounded mb-4"
+                width={393}
+                height={393}
+                className=" object-cover rounded mb-4"
               />
              <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
               {expandedBlog === blog.id ? (

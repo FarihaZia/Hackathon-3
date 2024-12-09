@@ -24,11 +24,11 @@ const Navbar = () => {
           <Link href={"/shop"} className="text-[16px] font-medium hover:underline">
             shop
           </Link>
-          <Link href={"#"} className="text-[16px] font-medium hover:underline">
+          <Link href={"/about"} className="text-[16px] font-medium hover:underline">
             About
           </Link>
           <Link
-            href={""}
+            href={"/contact"}
             className="text-[16px] font-medium hover:underline"
           >
             Contact
@@ -75,16 +75,16 @@ const Navbar = () => {
               <SheetTitle>Welcome!</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-4 mt-6">
-                <Link href={"#"} className="text-sm font-normal">
+                <Link href={"/"} className="text-sm font-normal">
                   Home
                 </Link>
-                <Link href={"#"} className="text-sm font-normal">
+                <Link href={"/shop"} className="text-sm font-normal">
                   Shop
                 </Link>
-                <Link href={"#"} className="text-sm font-normal">
+                <Link href={"/about"} className="text-sm font-normal">
                   About
                 </Link>
-                <Link href={"/sign-up"} className="text-sm font-normal">
+                <Link href={"/contact"} className="text-sm font-normal">
                   Contact
                 </Link>
                 <div className="mt-4 gap-4">

@@ -28,9 +28,9 @@ const SignUp =()=>{
   
            
             <nav className="text-black text-sm  mt-3">
-              <a href="/" className="font-bold">
+              <Link href="/" className="font-bold">
                 Home
-              </a>
+              </Link>
               <span className="mx-2 font-bold">{">"}</span>
           <Link href={"/checkout"}   > <span className="hover:underline ">My Account</span></Link>
             </nav>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import FormWithChevron from "./detail.";
+
 import Details from "./detail.";
 
 
@@ -27,9 +27,9 @@ const Checkout =()=>{
 
    
     <nav className="text-black text-sm  mt-3">
-      <a href="/" className="font-bold">
+      <Link href="/" className="font-bold">
         Home
-      </a>
+      </Link>
       <span className="mx-2 font-bold">{">"}</span>
   <Link href={"/checkout"}   > <span className="hover:underline ">Checkout</span></Link>
     </nav>

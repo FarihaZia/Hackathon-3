@@ -18,7 +18,7 @@ const Details = () => {
 
   ];
 
-  const handleChevronClick = (fieldId:any) => {
+  const handleChevronClick = (fieldId:string) => {
     console.log(`Chevron clicked for: ${fieldId}`);
   };
 

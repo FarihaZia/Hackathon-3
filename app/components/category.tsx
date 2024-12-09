@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 import React from "react";
 import { useState } from "react";
 
@@ -40,9 +41,12 @@ const ProductList = () => {
             key={product.id}
             className=" rounded-lg  overflow-hidden bg-[#FAF4F4] p-4 sm:w-64 md:w-80 lg:w-96 transform hover:scale-105 transition-transform duration-300"
           >
-            <img
+            <Image
               src={product.image}
               alt={product.name}
+              width={605}
+              height={562}
+              
               className="w-[605px] object-contain mb-4 rounded-md"
             />
             <h3 className="text-xl font-semibold text-center mb-4">{product.name}</h3>
