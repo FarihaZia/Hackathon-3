@@ -1,109 +1,223 @@
-import { Input } from '@/components/ui/input'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
+type FormValues = {
+  email: string;
+  password: string;
+};
 
-const SignUp =()=>{
-    return(
+type FormErrors = {
+  email?: string;
+  password?: string;
+};
 
-      <div className="max-w-7xl mx-auto">
-        <div className="relative bg-[url('/Images/mainbg.svg')] bg-cover bg-center h-[316px] ">
-          
-          <div className="absolute inset-0  "></div>
-  
-     
-          <div className="relative flex flex-col items-center justify-center h-full">
-       
-            <div className="mb-4 -mt-10">
-              <Image
-                src="/Images/Logo.svg"
-                alt="Shop Logo"
-                width={77} 
-                height={77} 
-                      className="object-contain"
-              />
+const AuthPage = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const [formValues, setFormValues] = useState<FormValues>({
+    email: "",
+    password: "",
+  });
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormValues((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors: FormErrors = {};
+    if (!formValues.email) errors.email = "Email is required";
+    if (!formValues.password) errors.password = "Password is required";
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      alert("Form submitted successfully!");
+    }
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto">
+      <div className="relative bg-[url('/Images/mainbg.svg')] bg-cover bg-center h-[316px] ">
+        <div className="absolute inset-0  "></div>
+
+        <div className="relative flex flex-col items-center justify-center h-full">
+          <div className="mb-4 -mt-10">
+            <Image
+              src="/Images/Logo.svg"
+              alt="Shop Logo"
+              width={77}
+              height={77}
+              className="object-contain"
+            />
+          </div>
+          <h1 className="font-medium text-[48px] -mt-5">Notify me</h1>
+
+          <nav className="text-black text-sm  mt-3">
+            <Link href="/" className="font-bold">
+              Home
+            </Link>
+            <span className="mx-2 font-bold">{">"}</span>
+            <span className="hover:underline ">Signup</span>
+          </nav>
+        </div>
+      </div>
+
+      <section className="bg-gray-50 py-12 px-6">
+        <div className="container mx-auto max-w-lg rounded-lg shadow-lg p-8 bg-white">
+          <h2 className="text-black text-2xl font-semibold mb-6 text-center">
+            {isLogin ? "Login to Your Account" : "Sign Up for Future Updates"}
+          </h2>
+
+          {!isForgotPassword ? (
+            <form onSubmit={handleSubmit}>
+              {/* Email Input */}
+              <div className="mb-4">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={formValues.email}
+                  onChange={handleChange}
+                  className="block w-full bg-white rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  required
+                />
+                {formErrors.email && (
+                  <span className="text-red-500 text-xs mt-1">
+                    {formErrors.email}
+                  </span>
+                )}
+              </div>
+
+              {/* Password Input */}
+              <div className="mb-4">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-600 mb-2"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  value={formValues.password}
+                  onChange={handleChange}
+                  className="block w-full bg-white rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  required
+                />
+                {formErrors.password && (
+                  <span className="text-red-500 text-xs mt-1">
+                    {formErrors.password}
+                  </span>
+                )}
+              </div>
+
+              {!isLogin && (
+                <div className="flex items-center mb-4">
+                  <input type="checkbox" id="newsletter" className="mr-2" />
+                  <label htmlFor="newsletter" className="text-sm text-gray-600">
+                    Sign up for future updates and exclusive deals!
+                  </label>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="w-full mt-4 py-3 bg-blue-500 text-white rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-200"
+              >
+                {isLogin ? "Login" : "Sign Up"}
+              </button>
+            </form>
+          ) : (
+            <div>
+              <h3 className="text-xl font-semibold text-gray-600 mb-4 text-center">
+                Forgot Password
+              </h3>
+              <p className="text-sm text-gray-500 mb-6 text-center">
+                Enter your email address to receive a password reset link.
+              </p>
+              <form onSubmit={handleSubmit}>
+                {/* Email Input */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-600 mb-2"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formValues.email}
+                    onChange={handleChange}
+                    className="block w-full bg-white rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    required
+                  />
+                  {formErrors.email && (
+                    <span className="text-red-500 text-xs mt-1">
+                      {formErrors.email}
+                    </span>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full mt-4 py-3 bg-blue-500 text-white rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-200"
+                >
+                  Send Password Reset Link
+                </button>
+              </form>
             </div>
-            <h1 className="font-medium text-[48px] -mt-5">My Account</h1>
-  
-           
-            <nav className="text-black text-sm  mt-3">
-              <Link href="/" className="font-bold">
-                Home
-              </Link>
-              <span className="mx-2 font-bold">{">"}</span>
-          <Link href={"/checkout"}   > <span className="hover:underline ">My Account</span></Link>
-            </nav>
+          )}
+
+          <div className="mt-6 text-center">
+            {!isLogin && !isForgotPassword ? (
+              <p className="text-sm text-gray-600">
+                Already have an account?{" "}
+                <span
+                  className="text-blue-500 cursor-pointer"
+                  onClick={() => setIsLogin(true)}
+                >
+                  Login
+                </span>
+              </p>
+            ) : isLogin ? (
+              <p className="text-sm text-gray-600">
+                Dont have an account?{" "}
+                <span
+                  className="text-blue-500 cursor-pointer"
+                  onClick={() => setIsLogin(false)}
+                >
+                  Sign Up
+                </span>
+              </p>
+            ) : (
+              <p className="text-sm text-gray-900">
+                Remember your password?{" "}
+                <span
+                  className="text-blue-500 cursor-pointer"
+                  onClick={() => setIsForgotPassword(false)}
+                >
+                  Go back to Login
+                </span>
+              </p>
+            )}
           </div>
         </div>
-        <section className="text-gray-600 body-font">
-  <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
-  
-    <div className="lg:w-2/6 md:w-1/2  rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
-      <h2 className="text-black  text-[36px] font-semibold mb-5">Log In</h2>
-      <div className="relative mb-4">
-        <label htmlFor="full-name" className="leading-7 text-sm text-gray-600">Username or email address</label>
-        <Input type="text" id="full-name" name="full-name" className=" bg-white rounded border border-gray-400 w-[423px] h-[75px] text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
-      </div>
-      <div className="relative mb-4">
-        <label htmlFor="email" className="leading-7 text-sm text-gray-600">Password</label>
-        <Input type="email" id="password" name="password" className=" bg-white rounded border border-gray-400 w-[423px] h-[75px] text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
-      </div>
-      <div className='flex justify-center gap-4'>
-      <button className=' rounded-lg w-6 h-6 outline outline-gray-200 outline-1 mb-4'></button>
-      <p className=" text-[16px] text-black">Remember Me</p>
-      </div>
-      <button className="text-black  border-0 outline outline-1 py-2 px-8 w-[215px] h-[64px] hover:bg-indigo-600 rounded-xl ">Log In</button>
-      
+      </section>
     </div>
+  );
+};
 
-    <div className="lg:w-2/6 md:w-1/2  rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 lg:mr-14">
-      <h2 className="text-black text-[36px] font-semibold  mb-5">Register</h2>
-      <div className="relative mb-4">
-        <label htmlFor="full-name" className="leading-7 text-sm text-gray-600">Email address</label>
-        <Input type="text" id="full-name" name="full-name" className="w-[423px] h-[75px] bg-white rounded border border-gray-400   text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
-      </div>
-    <p className='mb-3'>
-    A link to set a new password will be sent to your email address.
-    </p>
-
-    <p className='mb-6'>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.</p>
-      <button className="text-black border-0 py-2 px-8 outline outline-1  hover:bg-indigo-600 rounded-xl text-lg w-[215px] h-[64px]">Button</button>
-
-    </div>
-  
-  </div>
-</section>
-<div className="flex bg-[#FAF4F4] items-center  justify-between gap-6  h-[300px]">
-          <div>
-            <h1 className="font-medium lg:text-[32px] text-[25px]">
-              Free Delivery
-            </h1>
-            <p className="lg:text-[20px] text-[15px]">
-              For all orders over $50, consectetur adipim scing elit.
-            </p>
-          </div>
-
-          <div className="">
-            <h1 className="font-medium lg:text-[32px] text-[25px] ">
-              90 Days Return
-            </h1>
-            <p className="lg:text-[20px] text-[15px]">
-              If goods have problems, consectetur adipim scing elit.
-            </p>
-          </div>
-
-          <div>
-            <h1 className="font-medium lg:text-[32px] text-[25px]">
-              Secure Payment
-            </h1>
-            <p className="lg:text-[20px] text-[15px]">
-              100% secure payment, consectetur adipim scing elit.
-            </p>
-          </div>
-        </div>
-
-
-        </div>)}
-        export default SignUp
-  
+export default AuthPage;

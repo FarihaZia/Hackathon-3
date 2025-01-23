@@ -10,7 +10,7 @@ const Hero = () => {
 <div className='text-center lg:text-left lg:pl-9 lg:mt-36 '>
     <h1 className='font-medium text-[32px] lg:text-[64px] leading-tight mb-4'>Rocket Single <br/> seater</h1>
 
-<Link href={"/"} className='underline text-blue-500 text-lg lg:text-xl mt-4 inline-block'>Shop Now</Link>
+<Link href={"/shop"} className='underline text-blue-500 text-lg lg:text-xl mt-4 inline-block'>Shop Now</Link>
 </div>
 
 

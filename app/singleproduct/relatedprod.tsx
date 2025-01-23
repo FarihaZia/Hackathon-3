@@ -1,61 +1,64 @@
-"use client"
-import Image from "next/image";
-import React, { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
+import ProductListing from "../components/productlisting"; // Import the reusable ProductListing component
+
+// Fetch products from Sanity
+const fetchProducts = async () => {
+  const query = `*[_type == "product"]{
+    category,
+    _id,
+    price,
+    description,
+    stockLevel,
+    imagePath,
+    discountPercentage,
+    isFeaturedProduct,
+    name,
+    "image": image.asset._ref
+  }`;
+  return await client.fetch(query);
+};
 
 const RelatedProducts = () => {
-  const products = [
-    { id: 1, name: "Trenton modular sofa_3", price: "Rs. 25,000.00", image: "/Images/sofa2.svg" },
-    { id: 2, name: "Granite dining table with dining chair", price: "Rs. 25,000.00", image: "/Images/diningtable.svg" },
-    { id: 3, name: "Outdoor bar table and stool", price: "Rs. 25,000.00", image: "/Images/console.svg" },
-    { id: 4, name: "Plain console with teak mirror", price: "Rs. 25,000.00", image: "/Images/mirror.svg" },
-    { id: 5, name: "Plain console_", price: "Rs. 25,000.00", image: "/Images/console2.svg" },
-    { id: 6, name: "Side Table", price: "Rs. 258,800.00", image: "/Images/table.svg" },
-    { id: 7, name: "Sofa", price: "Rs. 250,000.00", image: "/Images/sofa.svg" },
-    { id: 8, name: "Reclaimed teak Sideboard", price: "Rs.20,000.00", image: "/Images/cupboard.svg" },
-  ];
+  const [products, setProducts] = useState([]);
+  const [productsPerPage, setProductsPerPage] = useState(4); // Default number of products to display
 
-  const [visibleProducts, setVisibleProducts] = useState(4);
+  useEffect(() => {
+    fetchProducts().then((data) => setProducts(data));
+  }, []);
 
   const handleViewMore = () => {
-    setVisibleProducts(visibleProducts + 4);
+    setProductsPerPage(8); // Show all 8 products when "View More" is clicked
   };
 
   const handleViewLess = () => {
-    setVisibleProducts((prev) => Math.max(prev - 4, 4));
+    setProductsPerPage(4); // Reset to 4 products when "View Less" is clicked
   };
 
   return (
     <section className="bg-white py-12 px-6">
-      <div className="container mx-auto max-w-7xl">
-        {/* Section Heading */}
+      <div className="mx-auto max-w-7xl">
+        {/* Header Section */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl lg:text-[36px] font-bold mb-2">Related Products</h2>
-          
+          <h2 className="text-3xl lg:text-[36px] font-bold mb-2">
+            Related Products
+          </h2>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.slice(0, visibleProducts).map((product) => (
-            <div
-              key={product.id}
-              className=" p-4 flex flex-col  bg-white hover:shadow-xl transition-shadow"
-            >
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={287}
-                height={287}
-                className="w-full h-40 object-contain mb-4"
-              />
-              <h3 className="text[16px]  mb-2">{product.name}</h3>
-              <p className=" font-medium text-[24px]">{product.price}</p>
-            </div>
-          ))}
+        {/* Product Listing */}
+        <div>
+          <ProductListing
+            products={products.slice(0, productsPerPage)} // Pass sliced products for display
+            productsPerPage={productsPerPage}
+            currentPage={1} // Fixed to show all in one section
+            onPageChange={() => {}} // Not needed here
+          />
         </div>
 
-         {/* View More / View Less Buttons */}
-         <div className="mt-8 text-center flex gap-4 justify-center">
-          {visibleProducts < products.length && (
+        {/* View More / View Less Buttons */}
+        <div className="mt-8 text-center flex gap-4 justify-center">
+          {productsPerPage < 8 && (
             <button
               onClick={handleViewMore}
               className="font-medium text-[20px] underline px-6 py-2 rounded hover:bg-slate-200 transition-colors"
@@ -63,7 +66,7 @@ const RelatedProducts = () => {
               View More
             </button>
           )}
-          {visibleProducts > 4 && (
+          {productsPerPage > 4 && (
             <button
               onClick={handleViewLess}
               className="font-medium text-[20px] underline px-6 py-2 rounded hover:bg-slate-200 transition-colors"
@@ -74,7 +77,6 @@ const RelatedProducts = () => {
         </div>
       </div>
     </section>
-
   );
 };
 

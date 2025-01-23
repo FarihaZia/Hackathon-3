@@ -3,7 +3,7 @@ import ProductList from "./components/category";
 import Hero from "./components/Hero";
 import InstaSection from "./components/Insta-section";
 import NewArrival from "./components/newarrival";
-import TopPicks from "./components/toppicks-section";
+import TopPicks from "./toppicks/page";
 
 export default function Home(){
   return(
