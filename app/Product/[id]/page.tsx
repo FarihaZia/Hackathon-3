@@ -3,7 +3,20 @@ import ProductDetail from "@/app/components/ProductDetail";
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
-
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  image: string;
+  quantity: number;
+  _id: string;
+  stockLevel: number;
+  imagePath: string;
+  discountPercentage: number;
+  isFeaturedProduct: number;
+}
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
  
@@ -11,7 +24,9 @@ const page = async ({ params }: { params: { id: string } }) => {
  "id":_id,  
  name,
     description,
-    price,
+    "image":image.asset._ref,
+    discountPercentage,
+    isFeaturedProduct,
     category,
     "image":image.asset._ref,
     
