@@ -4,8 +4,9 @@ import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
 
-const page = async ({ params: { id } }: { params: { id: string } }) => {
-  console.log("ID Passed:", id);
+const page = async ({ params }: { params: { id: string } }) => {
+  const { id } = params;
+ 
   const query = `*[_type == "product" && _id == $id]{
  "id":_id,  
  name,
