@@ -5,10 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface Params {
-  id: string;
+  params: {
+    id: string;
+  };
 }
 
-const page = async ({ params }: { params: Params }) => {
+const page = async ({ params }: Params) => {
   const { id } = params;
  
   const query = `*[_type == "product" && _id == $id]{
