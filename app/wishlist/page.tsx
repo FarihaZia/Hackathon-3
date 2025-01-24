@@ -11,7 +11,7 @@ const Wishlist = () => {
 
   const handleRemoveFromWishlist = (id: string) => {
     setWishlist((prevWishlist) =>
-      prevWishlist.filter((item) => item.id !== id)
+      prevWishlist.filter((item) => item._id !== id)
     );
   };
 
@@ -53,7 +53,7 @@ const Wishlist = () => {
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {wishlist.map((item) => (
-              <div key={item.id} className="border rounded-lg p-4">
+              <div key={item._id} className="border rounded-lg p-4">
                 <Image
                   src={urlFor(item.image).url()}
                   alt={item.name}
@@ -64,7 +64,7 @@ const Wishlist = () => {
                 <h2 className="text-lg font-bold mt-4">{item.name}</h2>
                 <p className="text-gray-500">Rs. {item.price}</p>
                 <button
-                  onClick={() => handleRemoveFromWishlist(item.id)}
+                  onClick={() => handleRemoveFromWishlist(item._id)}
                   className="text-red-500 underline mt-2"
                 >
                   Remove
