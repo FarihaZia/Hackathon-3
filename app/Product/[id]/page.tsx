@@ -9,7 +9,8 @@ interface Params {
 
 }
 
-const page = async ({ params }:{params:Promise<Params>}) => {
+const page = async ({
+   params }:{params:Promise<Params>}) => {
   const { id } = await params;
  
   const query = `*[_type == "product" && _id == $id]{

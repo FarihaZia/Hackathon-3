@@ -7,6 +7,7 @@ interface Params{
 
 const CategoryPage = async ({
   params}:{params:Promise<Params>}) => {
+
     const {category} = await params
   const query = `*[_type == "product" && category == $category]{
     _id,

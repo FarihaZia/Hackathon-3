@@ -21,10 +21,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const handleAddToCart = () => {
     const cartItem = { ...product, quantity };
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
+      const existingItem = prevCart.find((item) => item._id === product._id);
       if (existingItem) {
         return prevCart.map((item) =>
-          item.id === product.id
+          item._id === product._id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
@@ -35,7 +35,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   };
 
   const handleAddToWishlist = () => {
-    if (!wishlist.some((item) => item.id === product.id)) {
+    if (!wishlist.some((item) => item._id === product._id)) {
       setWishlist((prevWishlist) => [...prevWishlist, product]);
     }
   };
@@ -49,7 +49,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const handleCartUpdate = (id: string, type: "increase" | "decrease") => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id
+        item._id === id
           ? {
               ...item,
               quantity:
@@ -63,7 +63,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   };
 
   const handleRemoveFromCart = (id: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+    setCart((prevCart) => prevCart.filter((item) => item._id !== id));
   };
 
   return (
@@ -148,7 +148,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           <div className="p-4">
             {cart.map((item) => (
               <div
-                key={item.id}
+                key={item._id}
                 className="flex justify-between items-center mb-4"
               >
                 <Image
@@ -164,14 +164,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                   <div className="flex items-center gap-2">
                     <Button
                       variant="ghost"
-                      onClick={() => handleCartUpdate(item.id, "decrease")}
+                      onClick={() => handleCartUpdate(item._id, "decrease")}
                     >
                       -
                     </Button>
                     <span>{item.quantity}</span>
                     <Button
                       variant="ghost"
-                      onClick={() => handleCartUpdate(item.id, "increase")}
+                      onClick={() => handleCartUpdate(item._id, "increase")}
                     >
                       +
                     </Button>
@@ -179,7 +179,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 </div>
                 <Button
                   variant="ghost"
-                  onClick={() => handleRemoveFromCart(item.id)}
+                  onClick={() => handleRemoveFromCart(item._id)}
                 >
                   Remove
                 </Button>
