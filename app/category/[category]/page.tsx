@@ -1,13 +1,13 @@
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-
+interface Params{
+  category:string
+}
 
 const CategoryPage = async ({
-  params: { category },
-}: {
-  params: { category: string };
-}) => {
+  params}:{params:Promise<Params>}) => {
+    const {category} = await params
   const query = `*[_type == "product" && category == $category]{
     _id,
     name,
