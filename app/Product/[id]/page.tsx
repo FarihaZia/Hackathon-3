@@ -3,21 +3,12 @@ import ProductDetail from "@/app/components/ProductDetail";
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
-interface Product {
+
+interface Params {
   id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  image: string;
-  quantity: number;
-  _id: string;
-  stockLevel: number;
-  imagePath: string;
-  discountPercentage: number;
-  isFeaturedProduct: number;
 }
-const page = async ({ params }: { params: { id: string } }) => {
+
+const page = async ({ params }: { params: Params }) => {
   const { id } = params;
  
   const query = `*[_type == "product" && _id == $id]{
